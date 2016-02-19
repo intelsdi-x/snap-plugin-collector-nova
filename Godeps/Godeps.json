@@ -1,0 +1,18 @@
+{
+	"ImportPath": "github.com/intelsdi-x/snap-plugin-collector-nova",
+	"GoVersion": "go1.5",
+	"Deps": [
+		{
+			"ImportPath": "github.com/rackspace/gophercloud",
+			"Rev": "de2b7821eb1e44cb5a48cc6456c2322bc00053c6"
+		},
+		{
+			"ImportPath": "github.com/intelsdi-x/snap-plugin-utilities",
+			"Rev": "f6ebcc7cdefd9a74e256187e638ad6fa62487629"
+		},
+        {
+            "ImportPath": "github.com/mitchellh/mapstructure",
+            "Rev": "d2dd0262208475919e1a362f675cfc0e7c10e905"
+        }
+	]
+}
