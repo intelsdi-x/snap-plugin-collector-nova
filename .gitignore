@@ -21,4 +21,17 @@ _testmain.go
 
 *.exe
 *.test
-*.prof
+.idea
+tmp/
+*.tmp
+scratch/
+build/
+*.swp
+profile.cov
+gin-bin
+
+# we don't vendor godep _workspace
+**/Godeps/_workspace/**
+
+# OSX stuff
+.DS_Store
