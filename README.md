@@ -32,7 +32,7 @@ Configuration for this plugin is given via global config. Global configuration f
 -  `"openstack_auth_url"` - keystone url (ex. `"http://172.16.0.5:5000/v2.0/"`)
 
 These values should correspond to values given in `nova.conf`.
--  `allocation_ratio_cores"` - oversubscription ratio for vcpus, used to derive some metrics for hypervisors (ex. 1.5)
+-  `"allocation_ratio_cores"` - oversubscription ratio for vcpus, used to derive some metrics for hypervisors (ex. 1.5)
 -  `"allocation_ratio_ram"` - oversubscription ratio for memory, used to derive some metrics for hypervisors (ex. 3)
 -  `"reserved_node_cores"` - reserved virtual cores, used to derive some metrics for hypervisors (ex. 2)
 -  `"reserved_node_ram_mb"` - reserved virtual memory, used to derive some metrics for hypervisors (ex. 2048)
