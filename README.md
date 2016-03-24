@@ -18,7 +18,7 @@ This plugin monitors openstack nova resources such as limits, quotas and hypervi
 
 Plugin retrieves statistics using Nova Compute v2 Rest API.
 ### System Requirements
-* [golang 1.4+](https://golang.org/dl/) - needed only for building
+* [golang 1.5+](https://golang.org/dl/) - needed only for building
 
 ### Operating systems
 This plugin should work on any operating system supported by snap.
