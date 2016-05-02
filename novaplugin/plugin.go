@@ -32,13 +32,14 @@ import (
 	"reflect"
 
 	"github.com/intelsdi-x/snap-plugin-utilities/config"
+	"github.com/intelsdi-x/snap/core"
 )
 
 const (
 	// Name of plugin
 	Name = "nova-compute"
 	// Version of plugin
-	Version = 1
+	Version = 2
 	// Type of plugin
 	Type = plugin.CollectorPluginType
 )
@@ -118,7 +119,7 @@ type NovaPlugin struct {
 // are colllected once per tenant. All hypervisor related statistics are collected
 // in one call. This method also performs lazy initalization of plugin. Error
 // is returned if initalization or any of required call failed.
-func (self *NovaPlugin) CollectMetrics(mts []plugin.PluginMetricType) ([]plugin.PluginMetricType, error) {
+func (self *NovaPlugin) CollectMetrics(mts []plugin.MetricType) ([]plugin.MetricType, error) {
 	if len(mts) > 0 {
 		err := self.init(mts[0])
 
@@ -140,9 +141,9 @@ func (self *NovaPlugin) CollectMetrics(mts []plugin.PluginMetricType) ([]plugin.
 	hypervisors := false
 	cluster := false
 
-	results := make([]plugin.PluginMetricType, len(mts))
+	results := make([]plugin.MetricType, len(mts))
 	for _, mt := range mts {
-		id, group, subgroup, _ := parseName(mt.Namespace())
+		id, group, subgroup, _ := parseName(mt.Namespace().Strings())
 		if group == GROUP_CLUSTER {
 			cluster = true
 			continue
@@ -200,10 +201,16 @@ func (self *NovaPlugin) CollectMetrics(mts []plugin.PluginMetricType) ([]plugin.
 	}
 
 	for i, mt := range mts {
-		id, group, subgroup, metric := parseName(mt.Namespace())
-		mt := plugin.PluginMetricType{
+		tags := mt.Tags()
+		if tags == nil {
+			tags = map[string]string{}
+		}
+		tags["hostname"] = host
+
+		id, group, subgroup, metric := parseName(mt.Namespace().Strings())
+		mt := plugin.MetricType{
 			Namespace_: mt.Namespace(),
-			Source_:    host,
+			Tags_:      tags,
 			Timestamp_: t,
 		}
 		if group == GROUP_CLUSTER && id == ID_CONFIG {
@@ -230,7 +237,7 @@ func (self *NovaPlugin) CollectMetrics(mts []plugin.PluginMetricType) ([]plugin.
 // limits or quotas are constructed per tenant. Namespaces for hypervisors are
 // constructed  in single api call. This  method also performs lazy
 // initalization of plugin. Returns error if initalization or any request failed.
-func (self *NovaPlugin) GetMetricTypes(cfg plugin.PluginConfigType) ([]plugin.PluginMetricType, error) {
+func (self *NovaPlugin) GetMetricTypes(cfg plugin.ConfigType) ([]plugin.MetricType, error) {
 	err := self.init(cfg)
 
 	if err != nil {
@@ -268,9 +275,9 @@ func (self *NovaPlugin) GetMetricTypes(cfg plugin.PluginConfigType) ([]plugin.Pl
 		}
 	}
 
-	mts := make([]plugin.PluginMetricType, len(names))
+	mts := make([]plugin.MetricType, len(names))
 	for i, v := range names {
-		mts[i].Namespace_ = v
+		mts[i].Namespace_ = core.NewNamespace(v...)
 	}
 
 	return mts, nil

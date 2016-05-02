@@ -33,12 +33,13 @@ import (
 	"github.com/intelsdi-x/snap/control/plugin"
 	"github.com/intelsdi-x/snap/core/ctypes"
 
+	"github.com/intelsdi-x/snap/core"
 	"github.com/intelsdi-x/snap/core/cdata"
 )
 
 var smthErr = fmt.Errorf("smth")
 
-func testingConfig() (cfg1 plugin.PluginConfigType, cfg2 *cdata.ConfigDataNode) {
+func testingConfig() (cfg1 plugin.ConfigType, cfg2 *cdata.ConfigDataNode) {
 	cfg1 = plugin.NewPluginConfigType()
 	cfg2 = cdata.NewNode()
 
@@ -196,7 +197,7 @@ func TestGetMetricTypes(t *testing.T) {
 
 				tenants := map[string]bool{}
 				for _, mt := range mts {
-					tenants[mt.Namespace()[4]] = true
+					tenants[mt.Namespace().Strings()[4]] = true
 				}
 
 				So(tenants["asdf"], ShouldBeTrue)
@@ -207,7 +208,7 @@ func TestGetMetricTypes(t *testing.T) {
 					hvs := map[string]bool{}
 
 					for _, mt := range mts {
-						hvs[mt.Namespace()[3]+":"+mt.Namespace()[4]] = true
+						hvs[mt.Namespace().Strings()[3]+":"+mt.Namespace().Strings()[4]] = true
 					}
 
 					So(hvs["hypervisor:h1"], ShouldBeTrue)
@@ -219,7 +220,7 @@ func TestGetMetricTypes(t *testing.T) {
 					lms := map[string]bool{}
 
 					for _, mt := range mts {
-						lms[strings.Join(mt.Namespace()[4:], ":")] = true
+						lms[strings.Join(mt.Namespace().Strings()[4:], ":")] = true
 					}
 
 					So(lms["asdf:limits:limit1"], ShouldBeTrue)
@@ -237,7 +238,7 @@ func TestGetMetricTypes(t *testing.T) {
 					qts := map[string]bool{}
 
 					for _, mt := range mts {
-						qts[strings.Join(mt.Namespace()[4:], ":")] = true
+						qts[strings.Join(mt.Namespace().Strings()[4:], ":")] = true
 					}
 
 					So(qts["asdf:quotas:q1"], ShouldBeTrue)
@@ -256,7 +257,7 @@ func TestGetMetricTypes(t *testing.T) {
 					cvs := map[string]bool{}
 
 					for _, mt := range mts {
-						cvs[strings.Join(mt.Namespace()[3:], ":")] = true
+						cvs[strings.Join(mt.Namespace().Strings()[3:], ":")] = true
 					}
 
 					So(cvs["cluster:config:c1"], ShouldBeTrue)
@@ -288,12 +289,12 @@ func TestGetMetricTypes(t *testing.T) {
 
 }
 
-func makeMts(cfg *cdata.ConfigDataNode, ns ...string) []plugin.PluginMetricType {
-	res := make([]plugin.PluginMetricType, len(ns))
+func makeMts(cfg *cdata.ConfigDataNode, ns ...string) []plugin.MetricType {
+	res := make([]plugin.MetricType, len(ns))
 	for i, v := range ns {
 		res[i].Config_ = cfg
 		rns := []string{"intel", "openstack", "nova"}
-		res[i].Namespace_ = append(rns, strings.Split(v, "/")...)
+		res[i].Namespace_ = core.NewNamespace(append(rns, strings.Split(v, "/")...)...)
 	}
 
 	return res
@@ -429,23 +430,23 @@ func TestCollectMetrics(t *testing.T) {
 
 			dut := map[string]interface{}{}
 			for _, v := range mts {
-				dut[strings.Join(v.Namespace(), "/")] = v.Data()
+				dut[v.Namespace().String()] = v.Data()
 			}
 
-			So(dut["intel/openstack/nova/tenant/asdf/limits/limit1"], ShouldEqual, 13)
-			So(dut["intel/openstack/nova/tenant/asdf/limits/limit2"], ShouldEqual, 15)
-			So(dut["intel/openstack/nova/tenant/asdf/quotas/q1"], ShouldEqual, 33)
-			So(dut["intel/openstack/nova/tenant/asdf/quotas/q2"], ShouldEqual, 35)
-			So(dut["intel/openstack/nova/tenant/efg/limits/limit1"], ShouldEqual, 3)
-			So(dut["intel/openstack/nova/tenant/efg/limits/limit2"], ShouldEqual, 5)
-			So(dut["intel/openstack/nova/tenant/efg/quotas/q1"], ShouldEqual, 113)
-			So(dut["intel/openstack/nova/tenant/efg/quotas/q2"], ShouldEqual, 115)
-			So(dut["intel/openstack/nova/hypervisor/h1/s100"], ShouldEqual, 5)
-			So(dut["intel/openstack/nova/hypervisor/h1/s200"], ShouldEqual, 6)
-			So(dut["intel/openstack/nova/hypervisor/h2/s105"], ShouldEqual, 2)
-			So(dut["intel/openstack/nova/hypervisor/h2/s205"], ShouldEqual, 3)
-			So(dut["intel/openstack/nova/cluster/config/c1"], ShouldEqual, 444)
-			So(dut["intel/openstack/nova/cluster/config/c2"], ShouldEqual, 555)
+			So(dut["/intel/openstack/nova/tenant/asdf/limits/limit1"], ShouldEqual, 13)
+			So(dut["/intel/openstack/nova/tenant/asdf/limits/limit2"], ShouldEqual, 15)
+			So(dut["/intel/openstack/nova/tenant/asdf/quotas/q1"], ShouldEqual, 33)
+			So(dut["/intel/openstack/nova/tenant/asdf/quotas/q2"], ShouldEqual, 35)
+			So(dut["/intel/openstack/nova/tenant/efg/limits/limit1"], ShouldEqual, 3)
+			So(dut["/intel/openstack/nova/tenant/efg/limits/limit2"], ShouldEqual, 5)
+			So(dut["/intel/openstack/nova/tenant/efg/quotas/q1"], ShouldEqual, 113)
+			So(dut["/intel/openstack/nova/tenant/efg/quotas/q2"], ShouldEqual, 115)
+			So(dut["/intel/openstack/nova/hypervisor/h1/s100"], ShouldEqual, 5)
+			So(dut["/intel/openstack/nova/hypervisor/h1/s200"], ShouldEqual, 6)
+			So(dut["/intel/openstack/nova/hypervisor/h2/s105"], ShouldEqual, 2)
+			So(dut["/intel/openstack/nova/hypervisor/h2/s205"], ShouldEqual, 3)
+			So(dut["/intel/openstack/nova/cluster/config/c1"], ShouldEqual, 444)
+			So(dut["/intel/openstack/nova/cluster/config/c2"], ShouldEqual, 555)
 
 		})
 
