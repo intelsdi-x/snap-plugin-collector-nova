@@ -1,0 +1,50 @@
+{
+  "schedule": {
+    "interval": "10s",
+    "type": "simple"
+  },
+  "version": 1,
+  "workflow": {
+    "collect": {
+      "config": {},
+      "metrics": {
+        "/intel/openstack/nova/tenant/admin/limits/max_image_meta": {},
+        "/intel/openstack/nova/tenant/admin/limits/max_personality": {},
+        "/intel/openstack/nova/tenant/admin/limits/max_personality_size": {},
+        "/intel/openstack/nova/tenant/admin/limits/max_security_group_rules": {},
+        "/intel/openstack/nova/tenant/admin/limits/max_security_groups": {},
+        "/intel/openstack/nova/tenant/admin/limits/max_server_group_members": {},
+        "/intel/openstack/nova/tenant/admin/limits/max_server_groups": {},
+        "/intel/openstack/nova/tenant/admin/limits/max_server_meta": {},
+        "/intel/openstack/nova/tenant/admin/limits/max_total_cores": {},
+        "/intel/openstack/nova/tenant/admin/limits/max_total_floating_ips": {},
+        "/intel/openstack/nova/tenant/admin/limits/max_total_instances": {},
+        "/intel/openstack/nova/tenant/admin/limits/max_total_keypairs": {},
+        "/intel/openstack/nova/tenant/admin/limits/max_total_ram_size": {},
+        "/intel/openstack/nova/tenant/admin/limits/total_cores_used": {},
+        "/intel/openstack/nova/tenant/admin/limits/total_floating_ips_used": {},
+        "/intel/openstack/nova/tenant/admin/limits/total_instances_used": {},
+        "/intel/openstack/nova/tenant/admin/limits/total_ram_used": {},
+        "/intel/openstack/nova/tenant/admin/limits/total_security_groups_used": {},
+        "/intel/openstack/nova/tenant/admin/limits/total_server_groups_used": {},
+        "/intel/openstack/nova/tenant/admin/quotas/cores": {},
+        "/intel/openstack/nova/tenant/admin/quotas/fixed_ips": {},
+        "/intel/openstack/nova/tenant/admin/quotas/floating_ips": {},
+        "/intel/openstack/nova/tenant/admin/quotas/instances": {},
+        "/intel/openstack/nova/tenant/admin/quotas/key_pairs": {},
+        "/intel/openstack/nova/tenant/admin/quotas/ram": {},
+        "/intel/openstack/nova/tenant/admin/quotas/security_groups": {}
+      },
+      "process": null,
+      "publish": [
+                {
+                    "plugin_name": "file",
+                    "config": {
+                        "file": "/tmp/published_nova"
+                    }
+                }
+      ]
+    }
+  }
+}
+
