@@ -21,7 +21,6 @@ package novaplugin
 
 import (
 	"fmt"
-	"os"
 	"strings"
 	"sync"
 	"time"
@@ -131,9 +130,6 @@ func (self *NovaPlugin) CollectMetrics(mts []plugin.MetricType) ([]plugin.Metric
 		return mts, nil
 	}
 
-	// it's not worth to abort collection
-	// when only os.Hostname() raised error
-	host, _ := os.Hostname()
 	t := time.Now()
 
 	limitsFor := map[string]bool{}
@@ -201,16 +197,9 @@ func (self *NovaPlugin) CollectMetrics(mts []plugin.MetricType) ([]plugin.Metric
 	}
 
 	for i, mt := range mts {
-		tags := mt.Tags()
-		if tags == nil {
-			tags = map[string]string{}
-		}
-		tags["hostname"] = host
-
 		id, group, subgroup, metric := parseName(mt.Namespace().Strings())
 		mt := plugin.MetricType{
 			Namespace_: mt.Namespace(),
-			Tags_:      tags,
 			Timestamp_: t,
 		}
 		if group == GROUP_CLUSTER && id == ID_CONFIG {
