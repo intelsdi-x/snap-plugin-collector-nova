@@ -1,27 +1,22 @@
 {
-  "control": {
-    "cache_ttl": "5s"
-  },
-  "scheduler": {
-    "default_deadline": "5s",
-    "worker_pool_size": 5
-  },
-  "plugins": {
-    "collector": {
-      "nova-compute": {
-        "all": {
-          "openstack_auth_url": "http://localhost:5000/v2.0/",
-          "openstack_user": "admin",
-          "openstack_pass": "admin",
-          "openstack_tenant": "admin",
-          "allocation_ratio_cores" : 1.5,
-          "allocation_ratio_ram": 3,
-          "reserved_node_cores" : 2,
-          "reserved_node_ram_mb" : 2048
+    "control": {
+        "plugins": {
+            "collector": {
+                "nova-compute": {
+                  "all": {
+                    "openstack_auth_url": "http://localhost:5000/v2.0/",
+                    "openstack_user": "admin",
+                    "openstack_pass": "admin",
+                    "openstack_tenant": "admin",
+                    "allocation_ratio_cores" : 1.5,
+                    "allocation_ratio_ram": 3,
+                    "reserved_node_cores" : 2,
+                    "reserved_node_ram_mb" : 2048
+                  }
+                }
+            },
+            "publisher": {},
+            "processor": {}
         }
-      }
-    },
-    "publisher": {},
-    "processor": {}
-  }
+    }
 }

@@ -71,34 +71,29 @@ These values should correspond to values given in `nova.conf`:
 -  `"reserved_node_cores"` - reserved virtual cores, used to derive some metrics for hypervisors (ex. 2),
 -  `"reserved_node_ram_mb"` - reserved virtual memory, used to derive some metrics for hypervisors (ex. 2048).
 
-Example global configuration file for snap-plugin-collector-nova plugin (exemplary file in [examples/cfg/] (https://github.com/intelsdi-x/snap-plugin-collector-nova/blob/master/examples/cfg/)):
+Example global configuration file for snap-plugin-collector-nova plugin (exemplary file in [examples/cfg/] (examples/cfg/)):
 ```
 {
-  "control": {
-    "cache_ttl": "5s"
-  },
-  "scheduler": {
-    "default_deadline": "5s",
-    "worker_pool_size": 5
-  },
-  "plugins": {
-    "collector": {
-      "nova-compute": {
-        "all": {
-          "openstack_auth_url": "http://localhost:5000/v2.0/",
-          "openstack_user": "admin",
-          "openstack_pass": "admin",
-          "openstack_tenant": "admin",
-          "allocation_ratio_cores" : 1.5,
-          "allocation_ratio_ram": 3,
-          "reserved_node_cores" : 2,
-          "reserved_node_ram_mb" : 2048
+    "control": {
+        "plugins": {
+            "collector": {
+                "nova-compute": {
+                  "all": {
+                    "openstack_auth_url": "http://localhost:5000/v2.0/",
+                    "openstack_user": "admin",
+                    "openstack_pass": "admin",
+                    "openstack_tenant": "admin",
+                    "allocation_ratio_cores" : 1.5,
+                    "allocation_ratio_ram": 3,
+                    "reserved_node_cores" : 2,
+                    "reserved_node_ram_mb" : 2048
+                  }
+                }
+            },
+            "publisher": {},
+            "processor": {}
         }
-      }
-    },
-    "publisher": {},
-    "processor": {}
-  }
+    }
 }
 ```
 
@@ -112,7 +107,7 @@ $ export SNAP_PATH=<snapDirectoryPath>/build
 ```
 Other paths to files should be set according to your configuration, using a file you should indicate where it is located.
 
-Create Global Config, see example in [examples/cfg/] (https://github.com/intelsdi-x/snap-plugin-collector-nova/blob/master/examples/cfg/).
+Create Global Config, see example in [examples/cfg/] (examples/cfg/).
 
 In one terminal window, open the snap daemon (in this case with logging set to 1,  trust disabled and global configuration saved in cfg.json ):
 ```
@@ -134,7 +129,7 @@ See available metrics for your system
 $ $SNAP_PATH/bin/snapctl metric list
 ```
 
-Create a task manifest file to use snap-plugin-collector-nova plugin (exemplary files in [examples/tasks/] (https://github.com/intelsdi-x/snap-plugin-collector-neutron/blob/master/examples/tasks/)):
+Create a task manifest file to use snap-plugin-collector-nova plugin (exemplary files in [examples/tasks/] (examples/tasks/)):
 ```
 {
   "schedule": {
