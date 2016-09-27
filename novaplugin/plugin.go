@@ -288,7 +288,7 @@ func (self *NovaPlugin) init(cfg interface{}) error {
 	err := ReadConfig(cfg, &self.config)
 
 	if err != nil {
-		panic(fmt.Errorf("plugin initalization failed : [%v]", err))
+		return err
 	}
 
 	// testingCollector is a variable that might either be newCollector
