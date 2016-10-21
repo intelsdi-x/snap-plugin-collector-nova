@@ -23,10 +23,10 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/rackspace/gophercloud"
-	"github.com/rackspace/gophercloud/openstack"
-	"github.com/rackspace/gophercloud/openstack/identity/v2/tenants"
-	"github.com/rackspace/gophercloud/pagination"
+	"github.com/gophercloud/gophercloud"
+	"github.com/gophercloud/gophercloud/openstack"
+	"github.com/gophercloud/gophercloud/openstack/identity/v2/tenants"
+	"github.com/gophercloud/gophercloud/pagination"
 
 	"github.com/intelsdi-x/snap-plugin-collector-nova/nova/v2"
 )
@@ -117,7 +117,10 @@ func newCollector(config Config) (collectorInterface, error) {
 		return nil, err
 	}
 
-	client := openstack.NewIdentityV2(provider)
+	client, err := openstack.NewIdentityV2(provider, gophercloud.EndpointOpts{})
+	if err != nil {
+		return nil, fmt.Errorf("retrieving identity service failed: (%v)", err)
+	}
 	self.Keystone = client
 
 	return self, nil

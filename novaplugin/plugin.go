@@ -38,7 +38,7 @@ const (
 	// Name of plugin
 	Name = "nova-compute"
 	// Version of plugin
-	Version = 2
+	Version = 3
 	// Type of plugin
 	Type = plugin.CollectorPluginType
 )
