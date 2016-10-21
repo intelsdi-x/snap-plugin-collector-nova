@@ -22,7 +22,7 @@ package nova
 import (
 	"fmt"
 
-	"github.com/rackspace/gophercloud"
+	"github.com/gophercloud/gophercloud"
 
 	"github.com/mitchellh/mapstructure"
 )
