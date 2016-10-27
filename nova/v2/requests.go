@@ -24,7 +24,7 @@ import (
 
 	"github.com/intelsdi-x/snap-plugin-collector-nova/nova"
 
-	"github.com/rackspace/gophercloud"
+	"github.com/gophercloud/gophercloud"
 )
 
 type LimitsAbsoluteRespV2 struct {
