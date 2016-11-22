@@ -20,7 +20,7 @@ This plugin monitors openstack nova resources such as limits, quotas and hypervi
 Plugin retrieves statistics using Nova Compute v2 Rest API.
 
 ### System Requirements
-* [golang 1.5+](https://golang.org/dl/) - needed only for building
+* [golang 1.6+](https://golang.org/dl/) - needed only for building
 
 ### Operating systems
 All OSs currently supported by snap:
@@ -28,7 +28,7 @@ All OSs currently supported by snap:
 
 ### Installation
 #### Download OpenStack Nova plugin binary:
-You can get the pre-built binaries for your OS and architecture at snap's [GitHub Releases](https://github.com/intelsdi-x/snap/releases) page. Download the plugins package from the latest release, unzip and store in a path you want `snapd` to access.
+You can get the pre-built binaries for your OS and architecture at plugins's [GitHub Releases](https://github.com/intelsdi-x/snap-plugin-collector-nova/releases) page. Download the plugins package from the latest release, unzip and store in a path you want `snaptel` to access.
 
 #### To build the plugin binary:
 Fork https://github.com/intelsdi-x/snap-plugin-collector-nova
@@ -43,23 +43,15 @@ Build the plugin by running make within the cloned repo:
 ```
 $ make
 ```
-This builds the plugin in `/build/rootfs/`
+This builds the plugin in `./build/`
 
 ### Configuration and Usage
 
 * Set up the [snap framework](https://github.com/intelsdi-x/snap/blob/master/README.md#getting-started).
-* Create Global Config, see description in [snap's Global Config] (https://github.com/intelsdi-x/snap-plugin-collector-nova/blob/master/README.md#snaps-global-config).
+* Create Global Config, see description in [snap's Global Config](https://github.com/intelsdi-x/snap-plugin-collector-nova/blob/master/README.md#snaps-global-config).
 * Load the plugin and create a task, see example in [Examples](https://github.com/intelsdi-x/snap-plugin-collector-nova/blob/master/README.md#examples).
 
-## Documentation
-
-### Collected Metrics
-
-List of collected metrics is described in [METRICS.md](https://github.com/intelsdi-x/snap-plugin-collector-nova/blob/master/METRICS.md).
-
-### snap's Global Config
-
-Configuration for this plugin is given via global config. Global configuration files are described in [snap's documentation](https://github.com/intelsdi-x/snap/blob/master/docs/SNAPD_CONFIGURATION.md). You have to add section "nova-compute" in "collector" section and then specify following options:
+Configuration for this plugin is given via global config. Global configuration files are described in [snap's documentation](https://github.com/intelsdi-x/snap/blob/master/docs/SNAPTELD_CONFIGURATION.md). You have to add section "nova-compute" in "collector" section and then specify following options:
 -  `"openstack_user"` - user name used to authenticate (ex. `"admin"`),
 -  `"openstack_pass"`- password used to authenticate (ex. `"admin"`),
 -  `"openstack_tenant"` - tenant name used to authenticate (ex. `"admin"`),
@@ -97,94 +89,49 @@ Example global configuration file for snap-plugin-collector-nova plugin (exempla
 }
 ```
 
+## Documentation
+
+### Collected Metrics
+
+List of collected metrics is described in [METRICS.md](https://github.com/intelsdi-x/snap-plugin-collector-nova/blob/master/METRICS.md).
+
 ### Examples
+Example running nova collector and writing data to a file.
 
-Example running snap-plugin-collector-nova plugin and writing data to a file.
+Create or download example global config on snapteld's node:
+```
+mkdir -p /etc/snap/
+curl -sfLO https://github.com/intelsdi-x/snap-plugin-collector-nova/blob/master/examples/cfg/cfg.json -o /etc/snap/snapteld.conf
+```
 
-Make sure that your `$SNAP_PATH` is set, if not:
-```
-$ export SNAP_PATH=<snapDirectoryPath>/build
-```
-Other paths to files should be set according to your configuration, using a file you should indicate where it is located.
+Ensure [snap daemon is running](https://github.com/intelsdi-x/snap#running-snap):
+* initd: `sudo service snap-telemetry start`
+* systemd: `sudo systemctl start snap-telemetry`
+* command line: `sudo snapteld -l 1 -t 0 &`
 
-Create Global Config, see example in [examples/cfg/] (examples/cfg/).
+Download and load snap plugins:
+```
+$ wget http://snap.ci.snap-telemetry.io/plugins/snap-plugin-collector-nova/latest/linux/x86_64/snap-plugin-collector-nova
+$ wget http://snap.ci.snap-telemetry.io/plugins/snap-plugin-publisher-file/latest/linux/x86_64/snap-plugin-publisher-file
+$ snaptel plugin load snap-plugin-collector-nova
+$ snaptel plugin load snap-plugin-publisher-file
+```
 
-In one terminal window, open the snap daemon (in this case with logging set to 1,  trust disabled and global configuration saved in cfg.json ):
-```
-$ $SNAP_PATH/bin/snapd -l 1 -t 0 --config cfg.json
-```
-In another terminal window:
-
-Load snap-plugin-collector-nova plugin
-```
-$ $SNAP_PATH/bin/snapctl plugin load snap-plugin-collector-nova
-```
-Load file plugin for publishing:
-```
-$ $SNAP_PATH/bin/snapctl plugin load $SNAP_PATH/plugin/snap-publisher-file
-```
 See available metrics for your system
 
 ```
-$ $SNAP_PATH/bin/snapctl metric list
+$ snaptel metric list
 ```
 
-Create a task manifest file to use snap-plugin-collector-nova plugin (exemplary files in [examples/tasks/] (examples/tasks/)):
+Download an [example task file](https://github.com/intelsdi-x/snap-plugin-collector-nova/blob/master/examples/tasks/task.json) and load it:
 ```
-{
-  "schedule": {
-    "interval": "10s",
-    "type": "simple"
-  },
-  "version": 1,
-  "workflow": {
-    "collect": {
-      "config": {},
-      "metrics": {
-        "/intel/openstack/nova/tenant/admin/limits/max_image_meta": {},
-        "/intel/openstack/nova/tenant/admin/limits/max_personality": {},
-        "/intel/openstack/nova/tenant/admin/limits/max_personality_size": {},
-        "/intel/openstack/nova/tenant/admin/limits/max_security_group_rules": {},
-        "/intel/openstack/nova/tenant/admin/limits/max_security_groups": {},
-        "/intel/openstack/nova/tenant/admin/limits/max_server_group_members": {},
-        "/intel/openstack/nova/tenant/admin/limits/max_server_groups": {},
-        "/intel/openstack/nova/tenant/admin/limits/max_server_meta": {},
-        "/intel/openstack/nova/tenant/admin/limits/max_total_cores": {},
-        "/intel/openstack/nova/tenant/admin/limits/max_total_floating_ips": {},
-        "/intel/openstack/nova/tenant/admin/limits/max_total_instances": {},
-        "/intel/openstack/nova/tenant/admin/limits/max_total_keypairs": {},
-        "/intel/openstack/nova/tenant/admin/limits/max_total_ram_size": {},
-        "/intel/openstack/nova/tenant/admin/limits/total_cores_used": {},
-        "/intel/openstack/nova/tenant/admin/limits/total_floating_ips_used": {},
-        "/intel/openstack/nova/tenant/admin/limits/total_instances_used": {},
-        "/intel/openstack/nova/tenant/admin/limits/total_ram_used": {},
-        "/intel/openstack/nova/tenant/admin/limits/total_security_groups_used": {},
-        "/intel/openstack/nova/tenant/admin/limits/total_server_groups_used": {},
-        "/intel/openstack/nova/tenant/admin/quotas/cores": {},
-        "/intel/openstack/nova/tenant/admin/quotas/fixed_ips": {},
-        "/intel/openstack/nova/tenant/admin/quotas/floating_ips": {},
-        "/intel/openstack/nova/tenant/admin/quotas/instances": {},
-        "/intel/openstack/nova/tenant/admin/quotas/key_pairs": {},
-        "/intel/openstack/nova/tenant/admin/quotas/ram": {},
-        "/intel/openstack/nova/tenant/admin/quotas/security_groups": {}
-      },
-      "process": null,
-      "publish": [
-                {
-                    "plugin_name": "file",
-                    "config": {
-                        "file": "/tmp/published_nova"
-                    }
-                }
-      ]
-    }
-  }
-}
-```
-
-Create a task:
-```
-$ $SNAP_PATH/bin/snapctl task create -t examples/tasks/task.json
+$ curl -sfLO https://github.com/intelsdi-x/snap-plugin-collector-nova/blob/master/examples/tasks/task.json
+$ snaptel task create -t task.json
+Using task manifest to create task
+Task created
+ID: 02dd7ff4-8106-47e9-8b86-70067cd0a850
+Name: Task-02dd7ff4-8106-47e9-8b86-70067cd0a850
+State: Running
 ```
 
 ### Roadmap
