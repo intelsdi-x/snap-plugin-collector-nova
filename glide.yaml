@@ -1,0 +1,25 @@
+package: github.com/intelsdi-x/snap-plugin-collector-nova
+import:
+- package: github.com/gophercloud/gophercloud
+  subpackages:
+  - openstack
+  - openstack/identity/v2/tenants
+  - pagination
+- package: github.com/intelsdi-x/snap-plugin-utilities
+  subpackages:
+  - config
+- package: github.com/intelsdi-x/snap
+  version: ^0.18
+  subpackages:
+  - control/plugin
+  - control/plugin/cpolicy
+  - core
+- package: github.com/mitchellh/mapstructure
+testImport:
+- package: github.com/gorilla/mux
+- package: github.com/smartystreets/goconvey
+  subpackages:
+  - convey
+- package: github.com/stretchr/testify
+  subpackages:
+  - mock
