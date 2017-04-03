@@ -56,6 +56,9 @@ Configuration for this plugin is given via global config. Global configuration f
 -  `"openstack_pass"`- password used to authenticate (ex. `"admin"`),
 -  `"openstack_tenant"` - tenant name used to authenticate (ex. `"admin"`),
 -  `"openstack_auth_url"` - keystone url (ex. `"http://172.16.0.5:5000/v2.0/"`).
+If you're using authentication API in v3 you need to set one of those two configuration options (Note that both keys should be present in config, but only one of them is allowed to be set):
+- `"openstack_domain_name"` - domain name
+- `"openstack_domain_id"` - domain name
 
 These values should correspond to values given in `nova.conf`:
 -  `"allocation_ratio_cores"` - oversubscription ratio for vcpus, used to derive some metrics for hypervisors (ex. 1.5),

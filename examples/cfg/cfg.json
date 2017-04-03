@@ -8,6 +8,8 @@
                     "openstack_user": "admin",
                     "openstack_pass": "admin",
                     "openstack_tenant": "admin",
+                    "openstack_domain_id": "",
+                    "openstack_domain_name": "",
                     "allocation_ratio_cores" : 1.5,
                     "allocation_ratio_ram": 3,
                     "reserved_node_cores" : 2,
