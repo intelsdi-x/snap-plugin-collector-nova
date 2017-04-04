@@ -47,11 +47,15 @@ func testingConfig() (cfg1 plugin.ConfigType, cfg2 *cdata.ConfigDataNode) {
 	cfg1.AddItem("openstack_pass", ctypes.ConfigValueStr{Value: "x"})
 	cfg1.AddItem("openstack_tenant", ctypes.ConfigValueStr{Value: "asdf"})
 	cfg1.AddItem("openstack_auth_url", ctypes.ConfigValueStr{Value: "x"})
+	cfg1.AddItem("openstack_domain_id", ctypes.ConfigValueStr{Value: ""})
+	cfg1.AddItem("openstack_domain_name", ctypes.ConfigValueStr{Value: ""})
 
 	cfg2.AddItem("openstack_user", ctypes.ConfigValueStr{Value: "x"})
 	cfg2.AddItem("openstack_pass", ctypes.ConfigValueStr{Value: "x"})
 	cfg2.AddItem("openstack_tenant", ctypes.ConfigValueStr{Value: "asdf"})
 	cfg2.AddItem("openstack_auth_url", ctypes.ConfigValueStr{Value: "x"})
+	cfg2.AddItem("openstack_domain_id", ctypes.ConfigValueStr{Value: ""})
+	cfg2.AddItem("openstack_domain_name", ctypes.ConfigValueStr{Value: ""})
 
 	cfg1.AddItem("allocation_ratio_cores", ctypes.ConfigValueFloat{Value: 3})
 	cfg1.AddItem("allocation_ratio_ram", ctypes.ConfigValueFloat{Value: 4})

@@ -44,10 +44,12 @@ const (
 )
 
 type Config struct {
-	User   string `c:"openstack_user"`
-	Pass   string `c:"openstack_pass"`
-	Tenant string `c:"openstack_tenant"`
-	Url    string `c:"openstack_auth_url"`
+	User       string `c:"openstack_user"`
+	Pass       string `c:"openstack_pass"`
+	Tenant     string `c:"openstack_tenant"`
+	Url        string `c:"openstack_auth_url"`
+	DomainName string `c:"openstack_domain_name"`
+	DomaninID  string `c:"openstack_domain_id"`
 
 	RatioCores     float64 `c:"allocation_ratio_cores"`
 	RatioRam       float64 `c:"allocation_ratio_ram"`

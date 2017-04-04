@@ -97,6 +97,8 @@ func newCollector(config Config) (collectorInterface, error) {
 		Username:         config.User,
 		Password:         config.Pass,
 		TenantName:       config.Tenant,
+		DomainID:         config.DomaninID,
+		DomainName:       config.DomainName,
 		AllowReauth:      true,
 	}
 
