@@ -1,8 +1,10 @@
-hash: c0cd094bf5ca78c00ee4e8a2606934c890a7425af7babf30cbfd8958424cad7e
-updated: 2016-11-29T15:50:14.548374523+01:00
+hash: e17d67c1a708f37fee3d1479853a3b3a595ac3fb4d25c4ddad283bf10e8ae82a
+updated: 2017-11-01T06:26:48.800882267+08:00
 imports:
+- name: github.com/asaskevich/govalidator
+  version: 9699ab6b38bee2e02cd3fe8b99ecf67665395c96
 - name: github.com/gophercloud/gophercloud
-  version: d5eda9707e146108e4d424062b602fd97a71c2e6
+  version: c7551a666c4fee120cc314dce91ba3d0663a86f3
   subpackages:
   - openstack
   - openstack/identity/v2/tenants
@@ -11,7 +13,7 @@ imports:
   - openstack/utils
   - pagination
 - name: github.com/intelsdi-x/snap
-  version: cd9c1a86ea2a9d5821c6db91e4324f6caf6ba85c
+  version: 79e1dd457d77c985491c2f4746cbc425fb3dc2dd
   subpackages:
   - control/plugin
   - control/plugin/cpolicy
@@ -22,18 +24,19 @@ imports:
   - core/ctypes
   - core/serror
   - pkg/ctree
+  - pkg/fileutils
   - pkg/schedule
   - pkg/stringutils
   - scheduler/wmap
 - name: github.com/intelsdi-x/snap-plugin-utilities
-  version: 3c37e3965f3fc2f24714779d3bae7ba7032b87a9
+  version: 53c6d26990688f3f277511f5501518167f4cb798
   subpackages:
   - config
 - name: github.com/mitchellh/mapstructure
-  version: f3009df150dadf309fdee4a54ed65c124afad715
+  version: 06020f85339e21b2478f756a78e295255ffa4d6a
 - name: github.com/robfig/cron
   version: 32d9c273155a0506d27cf73dd1246e86a470997e
-- name: github.com/Sirupsen/logrus
+- name: github.com/sirupsen/logrus
   version: be52937128b38f1d99787bb476c789e2af1147f1
 - name: golang.org/x/sys
   version: c8bc69bc2db9c57ccf979550bc69655df5039a8a
@@ -43,7 +46,7 @@ imports:
   version: c1cd2254a6dd314c9d73c338c12688c9325d85c6
 testImports:
 - name: github.com/davecgh/go-spew
-  version: 04cdfd42973bb9c8589fd6a731800cf222fde1a9
+  version: 6d212800a42e8ab5c146b8ace3490ee17e5225f9
   subpackages:
   - spew
 - name: github.com/gopherjs/gopherjs
@@ -53,7 +56,7 @@ testImports:
 - name: github.com/gorilla/context
   version: 08b5f424b9271eedf6f9f0ce86cb9396ed337a42
 - name: github.com/gorilla/mux
-  version: 757bef944d0f21880861c2dd9c871ca543023cba
+  version: 7625a85c14e615274a4ee4bc8654f72310a563e4
 - name: github.com/jtolds/gls
   version: 8ddce2a84170772b95dd5d576c48d517b22cac63
 - name: github.com/pmezard/go-difflib
@@ -61,12 +64,12 @@ testImports:
   subpackages:
   - difflib
 - name: github.com/smartystreets/assertions
-  version: 443d812296a84445c202c085f19e18fc238f8250
+  version: 4ea54c1f28ad3ae597e76607dea3871fa177e263
   subpackages:
   - internal/go-render/render
   - internal/oglematchers
 - name: github.com/smartystreets/goconvey
-  version: 995f5b2e021c69b8b028ba6d0b05c1dd500783db
+  version: 9e8dc3f972df6c8fcc0375ef492c24d0bb204857
   subpackages:
   - convey
   - convey/gotest
@@ -74,7 +77,7 @@ testImports:
 - name: github.com/stretchr/objx
   version: cbeaeb16a013161a98496fad62933b1d21786672
 - name: github.com/stretchr/testify
-  version: 18a02ba4a312f95da08ff4cfc0055750ce50ae9e
+  version: 69483b4bd14f5845b5a1e55bca19e954e827f1d0
   subpackages:
   - assert
   - mock
