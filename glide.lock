@@ -1,6 +1,8 @@
 hash: c0cd094bf5ca78c00ee4e8a2606934c890a7425af7babf30cbfd8958424cad7e
 updated: 2016-11-29T15:50:14.548374523+01:00
 imports:
+- name: github.com/asaskevich/govalidator
+  version: 9699ab6b38bee2e02cd3fe8b99ecf67665395c96
 - name: github.com/gophercloud/gophercloud
   version: d5eda9707e146108e4d424062b602fd97a71c2e6
   subpackages:
@@ -11,7 +13,7 @@ imports:
   - openstack/utils
   - pagination
 - name: github.com/intelsdi-x/snap
-  version: cd9c1a86ea2a9d5821c6db91e4324f6caf6ba85c
+  version: 79e1dd457d77c985491c2f4746cbc425fb3dc2dd
   subpackages:
   - control/plugin
   - control/plugin/cpolicy
@@ -33,7 +35,7 @@ imports:
   version: f3009df150dadf309fdee4a54ed65c124afad715
 - name: github.com/robfig/cron
   version: 32d9c273155a0506d27cf73dd1246e86a470997e
-- name: github.com/Sirupsen/logrus
+- name: github.com/sirupsen/logrus
   version: be52937128b38f1d99787bb476c789e2af1147f1
 - name: golang.org/x/sys
   version: c8bc69bc2db9c57ccf979550bc69655df5039a8a
